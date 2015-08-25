@@ -4,6 +4,13 @@ var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
 var jshint = require('gulp-jshint');
 var imagemin = require('gulp-imagemin');
+var jade = require('gulp-jade');
+
+gulp.task('jade', function(){
+  return gulp.src('app/views/**/*.jade')
+    .pipe(jade())
+    .pipe(gulp.dest('src'));
+});
 
 gulp.task('styles', function () {
   return gulp.src('app/css/**/*.scss')
@@ -22,7 +29,7 @@ gulp.task('scripts', function () {
 });
 
 gulp.task('images', function () {
-  return gulp.src('app/img/*')
+  return gulp.src('app/img/**/*')
     .pipe(imagemin())
     .pipe(gulp.dest('src/img'));
 });
