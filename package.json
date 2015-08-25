@@ -1,0 +1,14 @@
+{
+  "name": "gulp-book",
+  "version": "1.0.0",
+  "description": "An example Gulp project",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Yates",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.0"
+  }
+}
