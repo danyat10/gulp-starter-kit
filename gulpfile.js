@@ -6,7 +6,7 @@ var jshint = require('gulp-jshint');
 var imagemin = require('gulp-imagemin');
 var jade = require('gulp-jade');
 
-gulp.task('jade', function(){
+gulp.task('jade', function () {
   return gulp.src('app/views/**/*.jade')
     .pipe(jade())
     .pipe(gulp.dest('src'));
@@ -33,3 +33,12 @@ gulp.task('images', function () {
     .pipe(imagemin())
     .pipe(gulp.dest('src/img'));
 });
+
+gulp.task('watch', function () {
+  gulp.watch('app/views/**/*.jade')
+  gulp.watch('app/css/**/*.scss')
+  gulp.watch('app/js/**/*.js')
+  gulp.watch('app/img/**/*')
+});
+
+gulp.task('default', gulp.parallel('jade', 'styles', 'scripts', 'images'));
