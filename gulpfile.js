@@ -12,41 +12,35 @@ var paths = {
     styles: "app/css/**/*.scss",
     scripts: "app/js/**/*.js",
     images: "app/img/*"
-  },
-  destination: {
-    jade: "build",
-    styles: "build/css",
-    scripts: "build/scripts",
-    images: "build/images"
   }
 };
 
 gulp.task('jade', function () {
   return gulp.src(paths.location.jade)
     .pipe(jade())
-    .pipe(gulp.dest(paths.destination.jade));
+    .pipe(gulp.dest('build'));
 });
 
 gulp.task('styles', function () {
   return gulp.src(paths.location.styles)
     .pipe(concat('application.css'))
     .pipe(sass())
-    .pipe(gulp.dest(paths.destination.styles));
+    .pipe(gulp.dest('build/css'));
 });
 
 gulp.task('scripts', function () {
   return gulp.src(paths.location.scripts)
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
-    .pipe(concat('all.js'))
+    .pipe(concat('main.js'))
     .pipe(uglify())
-    .pipe(gulp.dest(paths.destination.scripts));
+    .pipe(gulp.dest('build/js'));
 });
 
 gulp.task('images', function () {
   return gulp.src(paths.location.images)
     .pipe(imagemin())
-    .pipe(gulp.dest(paths.destination.images));
+    .pipe(gulp.dest('build/img'));
 });
 
 gulp.task('watch', function () {
