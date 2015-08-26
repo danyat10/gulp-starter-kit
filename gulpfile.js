@@ -1,10 +1,12 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
+var jade = require('gulp-jade');
 var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
 var jshint = require('gulp-jshint');
 var imagemin = require('gulp-imagemin');
-var jade = require('gulp-jade');
+var connect = require('connect');
+var serve = require('serve-static');
 
 var paths = {
   jade: "app/jade/**/*.jade",
@@ -41,6 +43,14 @@ gulp.task('images', function () {
     .pipe(gulp.dest('build/img'));
 });
 
+gulp.task('server', function() {
+  return connect().use(serve(__dirname + '/build'))
+    .listen(8080)
+    .on('listening', function(){
+      console.log('Server running: http://localhost:8080');
+    });
+});
+
 gulp.task('watch', function () {
   gulp.watch(paths.jade, ['jade']);
   gulp.watch(paths.styles, ['styles']);
@@ -48,4 +58,4 @@ gulp.task('watch', function () {
   gulp.watch(paths.images, ['images']);
 });
 
-gulp.task('default', ['watch', 'jade', 'styles', 'scripts', 'images']);
+gulp.task('default', ['jade', 'styles', 'scripts', 'images', 'watch', 'server']);
