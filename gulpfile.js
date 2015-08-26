@@ -24,7 +24,7 @@ gulp.task('jade', function () {
 gulp.task('styles', function () {
   return gulp.src(paths.styles)
     .pipe(concat('application.css'))
-    .pipe(sass())
+    .pipe(sass({outputStyle: 'compressed'}))
     .pipe(gulp.dest('build/css'))
     .pipe(browsersync.reload({ stream:true }));
 });
