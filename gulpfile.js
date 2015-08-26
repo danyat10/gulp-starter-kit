@@ -6,7 +6,6 @@ var uglify = require('gulp-uglify');
 var jshint = require('gulp-jshint');
 var imagemin = require('gulp-imagemin');
 var browsersync = require('browser-sync');
-var reload = browsersync.reload;
 
 var paths = {
   jade: "app/jade/**/*.jade",
@@ -19,7 +18,7 @@ gulp.task('jade', function () {
   return gulp.src(paths.jade)
     .pipe(jade())
     .pipe(gulp.dest('build'))
-    .pipe(reload({ stream:true }));
+    .pipe(browsersync.reload({ stream:true }));
 });
 
 gulp.task('styles', function () {
@@ -27,7 +26,7 @@ gulp.task('styles', function () {
     .pipe(concat('application.css'))
     .pipe(sass())
     .pipe(gulp.dest('build/css'))
-    .pipe(reload({ stream:true }));
+    .pipe(browsersync.reload({ stream:true }));
 });
 
 gulp.task('scripts', function () {
@@ -37,14 +36,14 @@ gulp.task('scripts', function () {
     .pipe(concat('main.js'))
     .pipe(uglify())
     .pipe(gulp.dest('build/js'))
-    .pipe(reload({ stream:true }));
+    .pipe(browsersync.reload({ stream:true }));
 });
 
 gulp.task('images', function () {
   return gulp.src(paths.images)
     .pipe(imagemin())
     .pipe(gulp.dest('build/img'))
-    .pipe(reload({ stream:true }));
+    .pipe(browsersync.reload({ stream:true }));
 });
 
 gulp.task('serve', ['jade', 'styles', 'scripts', 'images'], function() {
