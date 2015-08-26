@@ -5,8 +5,8 @@ var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
 var jshint = require('gulp-jshint');
 var imagemin = require('gulp-imagemin');
-var connect = require('connect');
-var serve = require('serve-static');
+var browsersync = require('browser-sync');
+var reload = browsersync.reload;
 
 var paths = {
   jade: "app/jade/**/*.jade",
@@ -18,14 +18,16 @@ var paths = {
 gulp.task('jade', function () {
   return gulp.src(paths.jade)
     .pipe(jade())
-    .pipe(gulp.dest('build'));
+    .pipe(gulp.dest('build'))
+    .pipe(reload({ stream:true }));
 });
 
 gulp.task('styles', function () {
   return gulp.src(paths.styles)
     .pipe(concat('application.css'))
     .pipe(sass())
-    .pipe(gulp.dest('build/css'));
+    .pipe(gulp.dest('build/css'))
+    .pipe(reload({ stream:true }));
 });
 
 gulp.task('scripts', function () {
@@ -34,28 +36,29 @@ gulp.task('scripts', function () {
     .pipe(jshint.reporter('default'))
     .pipe(concat('main.js'))
     .pipe(uglify())
-    .pipe(gulp.dest('build/js'));
+    .pipe(gulp.dest('build/js'))
+    .pipe(reload({ stream:true }));
 });
 
 gulp.task('images', function () {
   return gulp.src(paths.images)
     .pipe(imagemin())
-    .pipe(gulp.dest('build/img'));
+    .pipe(gulp.dest('build/img'))
+    .pipe(reload({ stream:true }));
 });
 
-gulp.task('server', function() {
-  return connect().use(serve(__dirname + '/build'))
-    .listen(8080)
-    .on('listening', function(){
-      console.log('Server running: http://localhost:8080');
-    });
-});
+gulp.task('serve', ['jade', 'styles', 'scripts', 'images'], function() {
+  browsersync({
+    server: {
+      baseDir: './build',
+      port: 5000
+    }
+  });
 
-gulp.task('watch', function () {
   gulp.watch(paths.jade, ['jade']);
   gulp.watch(paths.styles, ['styles']);
   gulp.watch(paths.scripts, ['scripts']);
   gulp.watch(paths.images, ['images']);
 });
 
-gulp.task('default', ['jade', 'styles', 'scripts', 'images', 'watch', 'server']);
+gulp.task('default', ['serve']);

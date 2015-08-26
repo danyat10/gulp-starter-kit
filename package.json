@@ -9,6 +9,7 @@
   "author": "Daniel Yates",
   "license": "ISC",
   "devDependencies": {
+    "browser-sync": "^2.8.2",
     "connect": "^3.4.0",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
