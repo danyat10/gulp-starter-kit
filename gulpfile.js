@@ -9,7 +9,7 @@ var browsersync = require('browser-sync');
 
 var paths = {
   jade: "app/jade/**/*.jade",
-  styles: "app/css/**/*.scss",
+  styles: "app/css/*.{sass,scss}",
   scripts: "app/js/**/*.js",
   images: "app/img/*"
 };
